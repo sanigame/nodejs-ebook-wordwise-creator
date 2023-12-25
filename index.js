@@ -38,8 +38,8 @@ function cleanWord(word) {
 const bookfile = process.argv[2];
 const bookpath = require('path').dirname(bookfile);
 const bookfilename = require('path').basename(bookfile, require('path').extname(bookfile));
-
-const hint_level = process.argv[3] || 5;
+const lang = process.argv[3] || 'en';
+const hint_level = process.argv[4] || 5;
 
 if (!process.argv[2]) {
     console.log(`usage: ${process.argv[1]} input_file hint_level`);
@@ -113,10 +113,15 @@ for (let i = 0; i <= bookcontent_arr.length; i++) {
             console.log(`[>>] Processing Word: ${i}`);
             console.log(`[#] bookcontent_arr[${i}]: ${bookcontent_arr[i]}`);
 
+            let wordwiseLang = lang
+            if(wordwiseLang === 'en') {
+              wordwiseLang = short_def
+            }
+
             // Replace Original Word with Wordwised
             bookcontent_arr[i] = bookcontent_arr[i].replace(
                 new RegExp(`(${word})`, 'i'),
-                `<ruby style="line-height: 3;">$1<rt>${wordwise.th}</rt></ruby>`
+                `<ruby style="line-height: 3;">$1<rt>${wordwise.wordwiseLang}</rt></ruby>`
             );
 
             console.log(`[#] word: ${word}`);
