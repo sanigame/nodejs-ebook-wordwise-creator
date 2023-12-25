@@ -115,13 +115,14 @@ for (let i = 0; i <= bookcontent_arr.length; i++) {
 
             let wordwiseLang = lang
             if(wordwiseLang === 'en') {
-              wordwiseLang = short_def
+              wordwiseLang = 'short_def'
             }
+            console.log('wordwiseLang', wordwiseLang)
 
             // Replace Original Word with Wordwised
             bookcontent_arr[i] = bookcontent_arr[i].replace(
                 new RegExp(`(${word})`, 'i'),
-                `<ruby style="line-height: 3;">$1<rt>${wordwise.wordwiseLang}</rt></ruby>`
+                `<ruby style="line-height: 3;">$1<rt>${wordwise[wordwiseLang]}</rt></ruby>`
             );
 
             console.log(`[#] word: ${word}`);
@@ -141,4 +142,4 @@ execSync(`ebook-convert ./book_dump_html/index1.html "${bookpath}/${bookfilename
 
 console.log("[+] 3 book EPUB, AZW3, PDF with wordwise generated Done!");
 
-// node index.js Kindle_Word_Wise_test-Doitsu.mobi 5
+// node index.js Kindle_Word_Wise_test-Doitsu.mobi en 5
